@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ค้นหาสมาชิก TO BE NUMBER ONE</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #e91e8c;
+    --pink-light: #fff0f5;
+    --pink-border: #f48fb1;
+    --red: #C0392B;
+    --red-dark: #922B21;
+    --red-light: #FADBD8;
+    --green: #0F9D58;
+    --gray-100: #F1F3F4;
+    --gray-200: #E8EAED;
+    --gray-400: #9AA0A6;
+    --gray-700: #3C4043;
+    --gray-900: #202124;
+  }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 40%, #fce4ec 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--gray-900);
+  }
+
+  /* Header */
+  .page-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .header-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .header-logo-row img {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 16px rgba(200,50,120,0.3);
+    border: 3px solid white;
+  }
+  .header-logo-row h1 {
+    font-size: 20px; font-weight: 700;
+    color: var(--red-dark);
+  }
+  .header-logo-row p { font-size: 13px; color: #c0607a; }
+
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .nav-tab {
+    padding: 9px 22px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Sarabun', sans-serif;
+    cursor: pointer;
+    border: 2px solid var(--pink-border);
+    background: white;
+    color: var(--pink);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .nav-tab:hover { background: var(--pink-light); }
+  .nav-tab.active {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(192,57,43,0.3);
+  }
+
+  /* Card */
+  .card {
+    max-width: 760px;
+    margin: 0 auto 20px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  }
+  .card-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card-header svg { flex-shrink: 0; }
+  .card-header span {
+    color: white; font-size: 16px; font-weight: 600;
+  }
+  .card-body { padding: 24px; }
+
+  /* URL Config */
+  .url-row {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    background: var(--pink-light);
+    border: 1.5px solid var(--pink-border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+  }
+  .url-row label { font-size: 13px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+  .url-row input {
+    flex: 1; min-width: 180px;
+    font-size: 12px; padding: 7px 10px;
+    border: 1.5px solid var(--gray-200); border-radius: 8px;
+    outline: none; font-family: 'Sarabun', sans-serif;
+  }
+  .url-row input:focus { border-color: var(--pink); }
+
+  /* Search */
+  .search-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+    max-width: 100%;
+  }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  label.field-label { font-size: 13px; font-weight: 500; color: var(--gray-700); }
+  input[type="text"], select {
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 14px;
+    font-family: 'Sarabun', sans-serif;
+    color: var(--gray-900);
+    background: white;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+  input[type="text"]:focus, select:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px rgba(233,30,140,0.1);
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    color: white;
+    box-shadow: 0 4px 14px rgba(192,57,43,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--gray-100); color: var(--gray-700);
+    border: 1.5px solid var(--gray-200);
+  }
+  .btn-secondary:hover { background: var(--gray-200); }
+  .btn-gold {
+    background: linear-gradient(135deg, #B7950B, #D4AC0D);
+    color: white;
+    box-shadow: 0 4px 14px rgba(212,172,13,0.3);
+  }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* Results table */
+  .results-wrap { overflow-x: auto; margin-top: 20px; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+  }
+  th {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    color: white; padding: 10px 12px;
+    text-align: left; white-space: nowrap;
+    font-weight: 600;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--gray-200); vertical-align: middle; }
+  tr:hover td { background: var(--pink-light); cursor: pointer; }
+  tr:last-child td { border-bottom: none; }
+  .badge {
+    display: inline-block; padding: 2px 10px;
+    border-radius: 20px; font-size: 11px; font-weight: 600;
+  }
+  .badge-male { background: #e3f2fd; color: #1565C0; }
+  .badge-female { background: #fce4ec; color: #880E4F; }
+
+  /* Empty / loading state */
+  .state-box {
+    text-align: center; padding: 40px 20px;
+    color: var(--gray-400); font-size: 14px;
+  }
+  .state-box svg { width: 48px; height: 48px; fill: var(--gray-200); margin-bottom: 12px; display: block; margin: 0 auto 12px; }
+
+  /* Result count */
+  .result-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 16px; margin-bottom: 8px;
+  }
+  .result-count { font-size: 13px; color: var(--gray-400); }
+
+  /* Print Modal */
+  #printModal {
+    display: none; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6); z-index: 1000; overflow-y: auto;
+  }
+  .modal-inner {
+    max-width: 680px; margin: 30px auto;
+    background: white; border-radius: 16px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .modal-header {
+    background: linear-gradient(135deg, var(--red-dark), var(--red));
+    padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-header span { color: white; font-weight: 600; font-size: 16px; }
+  .modal-header button {
+    background: rgba(255,255,255,0.2); border: none; color: white;
+    border-radius: 8px; padding: 6px 14px; cursor: pointer;
+    font-family: 'Sarabun', sans-serif; font-size: 14px;
+  }
+  .modal-body { padding: 28px; }
+  .modal-footer {
+    padding: 14px 24px; border-top: 1px solid var(--gray-200);
+    display: flex; gap: 10px; justify-content: center;
+  }
+
+  /* Print preview form */
+  .print-form {
+    border: 2px solid var(--red); border-radius: 8px; padding: 24px;
+    font-size: 14px; line-height: 1.9;
+  }
+  .print-form-title {
+    text-align: center; margin-bottom: 16px;
+  }
+  .print-form-title h2 { font-size: 18px; font-weight: 700; color: var(--red-dark); }
+  .print-form-title p { font-size: 13px; color: var(--gray-400); }
+  .print-id-box {
+    background: #FEF9E7; border-radius: 6px; padding: 8px 14px;
+    margin-bottom: 14px; font-size: 13px;
+  }
+  .print-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .print-table td { padding: 5px 8px; }
+  .print-table td:first-child { color: var(--gray-400); width: 140px; }
+  .print-sig {
+    text-align: right; margin-top: 24px; padding-top: 16px;
+    border-top: 1px solid var(--gray-200);
+  }
+  .print-sig-inner {
+    display: inline-block; text-align: center; width: 200px;
+  }
+  .print-sig-line {
+    border-bottom: 1px solid var(--gray-700); height: 48px;
+    display: flex; align-items: flex-end; justify-content: center; padding-bottom: 4px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--gray-900); color: white;
+    padding: 12px 20px; border-radius: 10px;
+    font-size: 14px; font-family: 'Sarabun', sans-serif;
+    opacity: 0; transform: translateY(12px);
+    transition: all 0.3s; z-index: 9999; max-width: 300px;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.success { border-left: 4px solid #27AE60; }
+  .toast.error { border-left: 4px solid var(--red); }
+
+  /* Print styles */
+  @media print {
+    body { background: white !important; padding: 0 !important; margin: 0 !important; }
+
+    /* ซ่อนทุกอย่างก่อน */
+    body > * { display: none !important; }
+
+    /* แสดงเฉพาะ modal */
+    #printModal { display: block !important; position: static !important; background: none !important; overflow: visible !important; }
+    #printModal .modal-inner { display: block !important; box-shadow: none !important; border-radius: 0 !important; max-width: 100% !important; margin: 0 !important; }
+    #printModal .modal-header { display: none !important; }
+    #printModal .modal-footer { display: none !important; }
+    #printModal .modal-body { display: block !important; padding: 0 !important; }
+    .print-form { border: none !important; padding: 8px !important; }
+    .print-form-title h2 { font-size: 16px !important; }
+    .print-table td { padding: 4px 8px !important; }
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 10px; }
+    .search-grid { grid-template-columns: 1fr; }
+    .header-logo-row { flex-direction: column; gap: 8px; }
+    .header-logo-row h1 { font-size: 16px; text-align: center; }
+    .btn-row { flex-direction: column; }
+    .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-logo-row">
+    <div style="text-align:left;">
+      <h1>ค้นหาสมาชิก TO BE NUMBER ONE</h1>
+      <p>TUPUBON — ระบบค้นหาและพิมพ์ใบสมัคร</p>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-tabs no-print" style="text-align:center;margin-bottom:20px;">
+  <a href="tobenumberone_form.html" style="display:inline-flex;align-items:center;gap:6px;padding:9px 22px;border-radius:40px;font-size:14px;font-weight:600;font-family:'Sarabun',sans-serif;background:white;color:#e91e8c;text-decoration:none;border:2px solid #f48fb1;">
+    📋 กรอกใบสมัคร
+  </a>
+  <a href="tobenumberone_search.html" style="display:inline-flex;align-items:center;gap:6px;padding:9px 22px;border-radius:40px;font-size:14px;font-weight:600;font-family:'Sarabun',sans-serif;background:linear-gradient(135deg,#922B21,#C0392B);color:white;text-decoration:none;border:none;box-shadow:0 4px 14px rgba(192,57,43,0.3);margin-left:10px;">
+    🔍 ค้นหาสมาชิก
+  </a>
+</div>
+
+<!-- Main Card -->
+<div class="card">
+  <div class="card-header">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <span>ค้นหาข้อมูลสมาชิก</span>
+  </div>
+  <div class="card-body">
+
+    <!-- Script URL -->
+    <input type="hidden" id="scriptUrl" value="https://script.google.com/macros/s/AKfycbwiGtvy2BrSZ01fYMpKfgHvSSqYH4fOEe9N5qld93KnWFFalxQZJ3blhNEqFiLZW_Tjqg/exec">
+
+    <!-- Search Fields -->
+    <div class="search-grid">
+      <div class="field">
+        <label class="field-label">ค้นหาจากชื่อ / นามสกุล</label>
+        <input type="text" id="searchName" placeholder="พิมพ์ชื่อหรือนามสกุล" oninput="filterResults()">
+      </div>
+      <div class="field">
+        <label class="field-label">ค้นหาจากเลขบัตรประชาชน</label>
+        <input type="text" id="searchId" placeholder="พิมพ์เลขบัตร" oninput="filterResults()">
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="filterResults()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        ค้นหา
+      </button>
+      <button class="btn btn-secondary" onclick="clearSearch()">ล้างการค้นหา</button>
+    </div>
+
+    <!-- Result Meta -->
+    <div class="result-meta" id="resultMeta" style="display:none;">
+      <span class="result-count" id="resultCount"></span>
+    </div>
+
+    <!-- Results Table -->
+    <div class="results-wrap" id="resultsWrap">
+      <div class="state-box" id="stateBox">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>
+        <p>กำลังโหลดข้อมูล...</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Print Modal -->
+<div id="printModal">
+  <div class="modal-inner">
+    <div class="modal-header">
+      <span>ใบสมัครสมาชิก TO BE NUMBER ONE</span>
+      <button onclick="closeModal()">✕ ปิด</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer no-print">
+      <button class="btn btn-secondary" onclick="closeModal()">กลับ</button>
+      <button class="btn btn-gold" onclick="window.print()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        พิมพ์ / บันทึก PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let allMembers = [];
+let filtered = [];
+
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+function formatDate(val) {
+  if (!val) return '-';
+  // ดึงเฉพาะส่วนวันที่ YYYY-MM-DD ออกมาก่อน
+  const datePart = String(val).split('T')[0];  // เช่น "2025-03-30" หรือ "2569-03-30"
+  const parts = datePart.split('-');
+  if (parts.length < 3) return datePart;
+  let year = parseInt(parts[0]);
+  const month = parseInt(parts[1]);
+  const day = parseInt(parts[2]);
+  // ถ้าปีน้อยกว่า 2500 แสดงว่าเป็น ค.ศ. ให้บวก 543
+  if (year < 2500) year = year + 543;
+  const monthNames = ['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน',
+                      'กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+  return `${day} ${monthNames[month-1]} ${year}`;
+}
+
+async function loadAllMembers() {
+  const url = document.getElementById('scriptUrl').value.trim();
+  if (!url) { showToast('กรุณาใส่ Google Apps Script URL ก่อน', 'error'); return; }
+
+  setStateBox('loading');
+  try {
+    const res = await fetch(url + '?action=getAll', { method: 'GET', mode: 'cors' });
+    const json = await res.json();
+    if (json.status === 'success') {
+      allMembers = json.data || [];
+      filtered = [...allMembers];
+      renderTable(filtered);
+      showToast(`โหลดข้อมูลสำเร็จ ${allMembers.length} รายการ`, 'success');
+    } else {
+      throw new Error(json.message || 'เกิดข้อผิดพลาด');
+    }
+  } catch(e) {
+    showToast('ไม่สามารถโหลดข้อมูลได้: ' + e.message, 'error');
+    setStateBox('error');
+  }
+}
+
+function setStateBox(state) {
+  const wrap = document.getElementById('resultsWrap');
+  const icons = {
+    loading: `<svg viewBox="0 0 24 24"><path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>`,
+    error: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`,
+    empty: `<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg>`
+  };
+  const msgs = {
+    loading: '<p>กำลังโหลดข้อมูล...</p>',
+    error: '<p>ไม่สามารถโหลดข้อมูลได้<br><span style="font-size:12px;">กรุณาตรวจสอบ URL และการตั้งค่า Apps Script</span></p>',
+    empty: '<p>ไม่พบข้อมูลที่ค้นหา</p>'
+  };
+  wrap.innerHTML = `<div class="state-box">${icons[state]}${msgs[state]}</div>`;
+  document.getElementById('resultMeta').style.display = 'none';
+}
+
+function renderTable(data) {
+  const wrap = document.getElementById('resultsWrap');
+  const meta = document.getElementById('resultMeta');
+  const count = document.getElementById('resultCount');
+
+  if (!data.length) { setStateBox('empty'); return; }
+
+  meta.style.display = 'flex';
+  count.textContent = `พบ ${data.length} รายการ (คลิกแถวเพื่อดูและพิมพ์ใบสมัคร)`;
+
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>ลำดับ</th>
+          <th>วันที่สมัคร</th>
+          <th>คำนำหน้า</th>
+          <th>ชื่อ-นามสกุล</th>
+          <th>เพศ</th>
+          <th>อายุ</th>
+          <th>สถานศึกษา</th>
+          <th>จังหวัด</th>
+          <th>พิมพ์</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${data.map((m, i) => `
+          <tr onclick="openPrint(${allMembers.indexOf(m)})" title="คลิกเพื่อดูและพิมพ์ใบสมัคร">
+            <td style="text-align:center;">${m.no || (i+1)}</td>
+            <td style="font-size:12px; color:#9AA0A6;">${formatDate(m.timestamp)}</td>
+            <td>${m.prefix || ''}</td>
+            <td style="font-weight:500;">${m.firstName || ''} ${m.lastName || ''}</td>
+            <td><span class="badge ${m.gender === 'ชาย' ? 'badge-male' : 'badge-female'}">${m.gender || '-'}</span></td>
+            <td style="text-align:center;">${m.age || '-'}</td>
+            <td>${m.school || '-'}</td>
+            <td>${m.province || '-'}</td>
+            <td style="text-align:center;">
+              <button onclick="event.stopPropagation(); openPrint(${allMembers.indexOf(m)})" class="btn btn-gold" style="padding:5px 12px; font-size:12px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                พิมพ์
+              </button>
+            </td>
+          </tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+function filterResults() {
+  const name = document.getElementById('searchName').value.toLowerCase().trim();
+  const idNum = document.getElementById('searchId').value.toLowerCase().trim();
+
+  if (!allMembers.length) {
+    showToast('กรุณาโหลดข้อมูลก่อนครับ', 'error'); return;
+  }
+
+  filtered = allMembers.filter(m => {
+    const fullName = ((m.prefix||'') + ' ' + (m.firstName||'') + ' ' + (m.lastName||'')).toLowerCase();
+    const matchName = !name || fullName.includes(name);
+    const matchId = !idNum || (m.idCard||'').replace(/-/g,'').includes(idNum.replace(/-/g,''));
+    return matchName && matchId;
+  });
+
+  renderTable(filtered);
+}
+
+function clearSearch() {
+  ['searchName','searchId'].forEach(id => document.getElementById(id).value = '');
+  filtered = [...allMembers];
+  if (allMembers.length) renderTable(filtered);
+}
+
+function openPrint(idx) {
+  const m = allMembers[idx];
+  if (!m) return;
+
+  document.getElementById('modalBody').innerHTML = `
+    <div class="print-form">
+      <div class="print-form-title">
+        <h2>ใบสมัครสมาชิก TO BE NUMBER ONE</h2>
+        <p>ชมรม TO BE NUMBER ONE (นักเรียน นักศึกษา)</p>
+        <p>สถานศึกษา: ${m.school || '-'}&nbsp;&nbsp;&nbsp;จังหวัด: ${m.province || '-'}</p>
+      </div>
+      <div class="print-id-box">
+        <strong>หมายเลขบัตรประชาชน:</strong> ${m.idCard || '-'}
+      </div>
+      <table class="print-table">
+        <tr><td>คำนำหน้า-ชื่อ-นามสกุล</td><td style="font-weight:500;">${m.prefix||''} ${m.firstName||''} ${m.lastName||''}</td></tr>
+        <tr><td>อายุ</td><td>${m.age || '-'} ปี</td></tr>
+        <tr><td>เพศ</td><td>${m.gender || '-'}</td></tr>
+        <tr><td>ที่อยู่</td><td style="white-space:pre-wrap;">${m.address || '-'}</td></tr>
+        <tr><td>สถานศึกษา</td><td>${m.school || '-'}</td></tr>
+        <tr><td>จังหวัด</td><td>${m.province || '-'}</td></tr>
+        <tr><td>ระดับการศึกษา</td><td>${m.education || '-'}</td></tr>
+        <tr><td>เหตุผลที่เข้าร่วม</td><td style="white-space:pre-wrap;">${m.reason || '-'}</td></tr>
+        <tr><td>วันที่สมัคร</td><td>${formatDate(m.timestamp)}</td></tr>
+      </table>
+      <div class="print-sig">
+        <div class="print-sig-inner">
+          <div class="print-sig-line">
+            <span style="font-size:15px; font-weight:500;">${m.signature || ''}</span>
+          </div>
+          <div style="font-size:13px; color:#9AA0A6; margin-top:4px;">( ลายมือชื่อ )</div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('printModal').style.display = 'block';
+}
+
+function closeModal() {
+  document.getElementById('printModal').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadAllMembers();
+});
+
+window.onclick = function(e) {
+  if (e.target === document.getElementById('printModal')) closeModal();
+};
+</script>
+</body>
+</html>
